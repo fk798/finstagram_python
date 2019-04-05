@@ -148,7 +148,7 @@ def postBio():
 def post():
     print(os.getcwd())
     username = session['username']
-    path = "/Users/faisalkarim/Desktop/finstagram_python/static"
+    path = "C:/Users/Fahim Faisal/Documents/NYU Spring 2019/CS 3083/Finstagram/static"
     stat = "/static"
     if request.method == 'POST':
         file = request.files['file']
@@ -156,10 +156,14 @@ def post():
         file.save(os.path.join(path, filename)) 
         path = os.path.join(path, filename)
         stat = os.path.join(stat, filename)
-        cursor = conn.cursor();
+        shareWith = request.form['share']
+        if shareWith == "yes":
+            query = 'INSERT INTO Photo (photoOwner, filePath, caption, allFollowers) VALUES(%s, %s, %s, true)'
+        else:
+            query = 'INSERT INTO Photo (photoOwner, filePath, caption, allFollowers) VALUES(%s, %s, %s, false)'
         caption = request.form['caption']
-        query = 'INSERT INTO Photo (photoOwner, filePath, caption, allFollowers) VALUES(%s, %s, %s, true)'
-        cursor.execute(query, (username, stat, caption))
+        cursor = conn.cursor()
+        cursor.execute(query, (username, stat, caption))    
         conn.commit()
         cursor.close()
     return redirect(url_for('home'))
