@@ -166,10 +166,7 @@ def post():
 
 @app.route('/select_user') #look at a user
 def select_user():
-    #check that user is logged in
-    #username = session['username']
-    #should throw exception if username not found
-    
+    username = session['username']
     cursor = conn.cursor();
     query = 'SELECT DISTINCT username FROM Person'
     cursor.execute(query)
@@ -179,6 +176,7 @@ def select_user():
 
 @app.route('/show_posts', methods=["GET", "POST"]) #show posts and bio of user
 def show_posts():
+    username = session['username']
     poster = request.args['poster']
     cursor = conn.cursor();
     query = 'SELECT photoID, timestamp, filePath, caption FROM Photo WHERE photoOwner = %s ORDER BY timestamp DESC'
