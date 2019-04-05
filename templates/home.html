@@ -30,11 +30,11 @@
 Here are your posts:
 <div>
 {% for line in posts %}
-		<p>{{line.photoID}}</p>
+		<p>Photo ID: {{line.photoID}}</p>
 		<img src = {{line.filePath}}>
-		<p>Time posted:{{line.timestamp}} <br> Caption:{{line.caption}}</p>
-		<a href="/tag" name = {{line.photoID}}>See who was tagged in this photo!</a>
-		<br>
+		<p>Time posted: {{line.timestamp}} <br> Caption: {{line.caption}}</p>
+		<a href="/tag" name = {{line.photoID}}>See who was tagged in this photo</a>
+		<br><br><br>
 {% endfor %}
 </div>
 <br>
