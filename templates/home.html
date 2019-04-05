@@ -2,21 +2,25 @@
 <head>
 </head>
 <body>
-	<h1>Welcome, {{name[0].fname}} {{name[0].lname}}</h1>
-	<p><strong>Bio: </strong>{{bio[0].bio}}</p>
+	<h1>Welcome, {{name.fname}} {{name.lname}}</h1>
+	<p><strong>Bio: </strong>{{bio.bio}}</p>
 	
 	<form action="/post_bio" method="POST">
 		<input type="text" name = "postBio" placeholder="Update Bio"/> </br>
 		<input type="submit" value = Post />
 	</form>
 	<br>
-	<br>
+	
 	<a href = "/follow">Follow someone!</a><br>
+	<a href = "/pending_requests">Manage your follow requests</a><br>
+	
 	<h1>Upload a Picture!</h1>
-
     <form action="/post" method="POST" enctype = "multipart/form-data">
         <input type="file" name = "file" placeholder="Upload a Picture!" required/> </br>
-        <input type="text" name = "caption" placeholder="caption" required/> </br>
+        <input type="text" name = "caption" placeholder="Caption" required/> </br>
+		Do you want to share this photo with all of your followers? <br> 
+		<input type="radio" name="share" value= "yes" required/> Yes <br>
+		<input type="radio" name="share" value="no"> No <br>
         <input type="submit" value = Post />
     </form>
 </form>
@@ -27,12 +31,13 @@
 	}
 </style>
 
-Here are your posts:
+<br>
+<strong>Here are your posts:</strong>
 <div>
 {% for line in posts %}
 		<p>Photo ID: {{line.photoID}}</p>
 		<img src = {{line.filePath}}>
-		<p>Time posted: {{line.timestamp}} <br> Caption: {{line.caption}}</p>
+		<p>Caption: {{line.caption}} <br> Time posted: {{line.timestamp}}</p>
 		<a href="/tag" name = {{line.photoID}}>See who was tagged in this photo</a>
 		<br><br><br>
 {% endfor %}
