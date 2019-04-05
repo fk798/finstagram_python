@@ -9,15 +9,16 @@
 	}
 </style>
 
-<h1>{{poster_name}}</h1>
-<br>
-<strong>Bio:</strong> {{bio[0].bio}}
-<br>
+<h1>Here are the posts made by {{name.fname}} {{name.lname}}:</h1>
+
 
 <div>
 {% for line in posts %}
+		<p>Photo ID: {{line.photoID}}</p>
 		<img src = {{line.filePath}}>
-		<p>{{line.timestamp}} {{line.caption}}</p>
+		<p>Time posted: {{line.timestamp}} <br> Caption: {{line.caption}}</p>
+		<a href="/tag" name = {{line.photoID}}>See who was tagged in this photo</a>
+		<br><br><br>
 {% endfor %}
 </div>
 
@@ -26,7 +27,7 @@
 <a href="/select_user">Select another user</a>
 <br>
 <br>
-<a href="/home">Go back to your page</a>
+<a href="/home">Go back to your home page</a>
 <br>
 <br>
 <a href="/logout">Logout</a>
