@@ -32,15 +32,16 @@ Here are your posts:
 {% for line in posts %}
 		<p>{{line.photoID}}</p>
 		<img src = {{line.filePath}}>
-		<p>{{line.timestamp}} {{line.caption}}</p>
-		<a href="/tag" name = {{line.photoID}}>See who was tagged!</a>
+		<p>Time posted:{{line.timestamp}} <br> Caption:{{line.caption}}</p>
+		<a href="/tag" name = {{line.photoID}}>See who was tagged in this photo!</a>
+		<br>
 {% endfor %}
 </div>
 <br>
 <br>
 
-<a href="/select_user">Select a user</a>
-<br>
+<a href="/select_user">See what your friend have posted</a>
+<br><br>
 <a href="/logout">Logout</a>
 
 </body>
