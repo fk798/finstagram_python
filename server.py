@@ -127,9 +127,10 @@ def followAuth():
             queryWillFollow = "insert into Follow values (%s, %s, false)"
             cursor.execute(queryWillFollow, (username, followee))
             cursor.close()
-            return render_template('follow.html', error = "you have requested a Follow.")
+            conn.commit()
+            return render_template('follow.html', error = "You have requested a Follow.")
         cursor.close()
-        return render_template('follow.html', error = "You are already requested to follow this person!")
+        return render_template('follow.html', error = "You have already requested to follow this person!")
 
 
 @app.route('/post_bio', methods=['POST']) #change bio
