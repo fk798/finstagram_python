@@ -115,22 +115,22 @@ def followAuth():
     followee = request.form['followee']
     query = 'select * from Person where username = %s'
     cursor.execute(query, (followee))
-    checker = cursor.fetchall()
-    if checker.length == 0:
-        cursor.close()
-        return render_template('follow.html', error = "This person does not exist!")
-    else:
+    checker = cursor.fetchone()
+    if (checker):
         queryFollow = 'select * from Follow where followerUsername = %s and followeeUsername = %s'
         cursor.execute(queryFollow, (username, followee))
         isFollowed = cursor.fetchone()
-        if isFollowed == 0:
+        if (isFollowed):
+            cursor.close()
+            return render_template('follow.html', error = "You have already requested to follow this person!")
+        else:
             queryWillFollow = "insert into Follow values (%s, %s, false)"
             cursor.execute(queryWillFollow, (username, followee))
             cursor.close()
             conn.commit()
             return render_template('follow.html', error = "You have requested a Follow.")
-        cursor.close()
-        return render_template('follow.html', error = "You have already requested to follow this person!")
+    else:
+        return render_template('follow.html', error = "This person does not exist!")
 
 
 @app.route('/post_bio', methods=['POST']) #change bio
