@@ -181,14 +181,15 @@ def select_user():
 def show_posts():
     poster = request.args['poster']
     cursor = conn.cursor();
-    query = 'SELECT timestamp, filePath, caption FROM Photo WHERE photoOwner = %s ORDER BY timestamp DESC'
+    query = 'SELECT photoID, timestamp, filePath, caption FROM Photo WHERE photoOwner = %s ORDER BY timestamp DESC'
     cursor.execute(query, poster)
     data = cursor.fetchall()
-    queryBio = 'select bio from Person where username = %s'
-    cursor.execute(queryBio, (poster))
-    bio =cursor.fetchall()
+    queryName ='SELECT fname, lname FROM Person WHERE username = %s'
+    cursor.execute(queryName, (poster))
+    name = cursor.fetchone()
     cursor.close()
-    return render_template('show_posts.html', poster_name=poster, posts=data, bio=bio)
+    conn.commit()
+    return render_template('show_posts.html', poster_name=poster, posts=data, name = name)
 
 @app.route('/logout')
 def logout():
